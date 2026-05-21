@@ -1,0 +1,245 @@
+# Sistema de Armazenamento Deduplicado
+
+Projeto acadêmico em C++ para simular um sistema de backup/versionamento com deduplicação global de dados, inspirado em arquiteturas utilizadas por sistemas como Git e serviços de armazenamento em nuvem.
+
+---
+
+## Objetivo
+
+O sistema lê múltiplos arquivos `.txt`, divide seu conteúdo em linhas e armazena apenas linhas únicas em um repositório global.
+
+Arquivos originais são reconstruídos posteriormente usando uma “receita” contendo referências para os blocos armazenados.
+
+---
+
+## Funcionalidades
+
+### Ingestão (Deduplicação)
+
+- Leitura de múltiplos arquivos `.txt`
+- Geração de hash para cada linha
+- Armazenamento apenas de linhas únicas
+- Criação de receitas para reconstrução
+- Serialização dos dados em arquivos binários
+
+### Reconstrução
+
+- Carregamento do estado salvo em disco
+- Reconstrução exata de arquivos originais
+- Escrita do resultado em um novo arquivo `.txt`
+
+---
+
+## Estrutura do Projeto
+
+```text
+.
+├── src/
+│   ├── main.cpp
+│   ├── storage.cpp
+│   ├── deduplicator.cpp
+│   ├── reconstructor.cpp
+│   ├── serializer.cpp
+│   └── cli.cpp
+│
+├── include/
+│   ├── storage.hpp
+│   ├── deduplicator.hpp
+│   ├── reconstructor.hpp
+│   ├── serializer.hpp
+│   └── cli.hpp
+│
+├── data/
+│   ├── storage.dat
+│   └── recipes.dat
+│
+├── tests/
+│
+├── Makefile
+├── README.md
+└── alunos.txt
+```
+
+---
+
+## Estruturas de Dados
+
+### Dicionário Global
+
+Mapeia:
+
+```cpp
+size_t hash_da_linha -> uint32_t id
+```
+
+Permite verificação de duplicidade em tempo médio `O(1)`.
+
+---
+
+### Repositório Global
+
+```cpp
+std::vector<std::string>
+```
+
+Armazena todas as linhas únicas.
+
+---
+
+### Receitas
+
+```cpp
+std::unordered_map<std::string, std::vector<uint32_t>>
+```
+
+Cada arquivo possui uma sequência de IDs representando sua estrutura original.
+
+---
+
+## Compilação
+
+### Requisitos
+
+- Linux (Ubuntu 24.04)
+- g++
+- make
+
+### Compilar
+
+```bash
+make
+```
+
+Executável gerado:
+
+```bash
+./dedup
+```
+
+---
+
+## Uso
+
+### Ingerir arquivos
+
+```bash
+./dedup ingerir arquivo1.txt arquivo2.txt
+```
+
+O sistema irá:
+
+- processar os arquivos
+- deduplicar linhas
+- salvar os dados em disco
+- exibir estatísticas finais
+
+---
+
+### Reconstruir arquivo
+
+```bash
+./dedup reconstruir arquivo_original.txt saida.txt
+```
+
+O sistema irá:
+
+- carregar os dados serializados
+- reconstruir o arquivo original
+- salvar o resultado em `saida.txt`
+
+---
+
+## Exemplo
+
+### Entrada
+
+#### doc1.txt
+
+```text
+Linha A
+Linha B
+Linha C
+```
+
+#### doc2.txt
+
+```text
+Linha A
+Linha X
+Linha C
+```
+
+---
+
+### Repositório Global
+
+```text
+[0] -> Linha A
+[1] -> Linha B
+[2] -> Linha C
+[3] -> Linha X
+```
+
+---
+
+### Receitas
+
+```text
+doc1.txt -> [0, 1, 2]
+doc2.txt -> [0, 3, 2]
+```
+
+---
+
+## Persistência
+
+Os dados são armazenados em arquivos binários:
+
+- `storage.dat`
+- `recipes.dat`
+
+A serialização é implementada manualmente usando apenas a biblioteca padrão do C++.
+
+---
+
+## Conceitos Utilizados
+
+- `std::unordered_map`
+- `std::vector`
+- hashing com `std::hash`
+- serialização binária
+- manipulação de arquivos
+- modularização em C++
+- CLI (Command Line Interface)
+
+---
+
+## Eficiência
+
+- Verificação de duplicidade: `O(1)` médio
+- Reconstrução por linha: `O(1)`
+- Baixo consumo de memória
+- Armazenamento sem redundância
+
+---
+
+## Restrições do Projeto
+
+- Apenas biblioteca padrão do C++
+- Sem bibliotecas externas
+- Compatível com Linux
+- Código modularizado
+- Compilação via Makefile
+
+---
+
+## Autor(es)
+
+-Luis Henrique Farias (lhfspro@gmail.com).
+-João Lourenço (**).
+
+---
+
+## Licença
+
+Projeto acadêmico desenvolvido para fins educacionais.
