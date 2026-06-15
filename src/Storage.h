@@ -10,7 +10,7 @@ class Storage {
 private:
     std::unordered_map<size_t, uint32_t> dicionarioGlobal;
     std::vector<std::string> repositorioGlobal;
-    std::unordered_map<std::string, std::vector<uint32_t>> dicionarioGlobal;
+    std::unordered_map<std::string, std::vector<uint32_t>> receitas;
 
 public:
     Storage();
