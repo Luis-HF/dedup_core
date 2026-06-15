@@ -1,6 +1,22 @@
-#ifndef STORAGE_H
-#define STORAGE_H
+#ifndef SERIALIZER_H
+#define SERIALIZER_H
 
-// Estrutura futura
+#include "Storage.h"
+
+
+class Serializer {
+private:
+    Storage* storage;
+
+public:
+    Serializer(Storage* storageCentral);
+
+
+
+    void salvarParaDisco(const std::string& caminhoArquivoDat);
+
+
+    void carregarDoDisco(const std::string& caminhoArquivoDat);
+};
 
 #endif
