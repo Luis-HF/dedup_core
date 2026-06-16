@@ -6,7 +6,15 @@
 #include <unordered_map>
 #include <cstdint>
 
+class Deduplicator;
+class Reconstructor;
+class Serializer;
+
 class Storage {
+    friend class Deduplicator;
+    friend class Reconstructor;
+    friend class Serializer;
+
 private:
     std::unordered_map<size_t, uint32_t> dicionarioGlobal;
     std::vector<std::string> repositorioGlobal;
