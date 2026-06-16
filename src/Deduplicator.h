@@ -12,7 +12,7 @@ private:
 public:
     Deduplicator(Storage* storageCentral);
 
-    void ingerirArquivos(const std::vector<std::string>& listaNomesArquivos);
+    size_t ingerirArquivos(const std::vector<std::string>& listaNomesArquivos);
 };
 
 

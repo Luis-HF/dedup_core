@@ -7,8 +7,9 @@ Deduplicator::Deduplicator(Storage* storageCentral) {
     this->storage = storageCentral;
 }
 
-void Deduplicator::ingerirArquivos(const std::vector<std::string>& listaNomesArquivos) {
+size_t Deduplicator::ingerirArquivos(const std::vector<std::string>& listaNomesArquivos) {
     std::hash<std::string> geradorHash;
+    size_t totalLinhas = 0;
 
     for (const std::string& nomeArquivo : listaNomesArquivos) {
         std::ifstream arquivoFisico(nomeArquivo);
@@ -24,10 +25,12 @@ void Deduplicator::ingerirArquivos(const std::vector<std::string>& listaNomesArq
             size_t hashDaLinha = geradorHash(linhaAtual);
             uint32_t idDoBloco = storage->adicionarBlocoSeInedito(hashDaLinha, linhaAtual);
             receitaDoArquivo.push_back(idDoBloco);
+            totalLinhas++;
         }
 
         storage->salvarReceita(nomeArquivo, receitaDoArquivo);
 
         arquivoFisico.close();
     }
+    return totalLinhas;
 }
