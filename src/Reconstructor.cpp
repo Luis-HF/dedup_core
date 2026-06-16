@@ -21,9 +21,13 @@ void Reconstructor::reconstruirArquivo(const std::string& nomeOriginal, const st
         return;
     }
 
-    for (uint32_t id : receita) {
-        std::string blocoTexto = storage->obterTextoDoBloco(id);
-        arquivoDestino << blocoTexto << "\n";
+    for (size_t i = 0; i < receita.size(); ++i) {
+        std::string blocoTexto = storage->obterTextoDoBloco(receita[i]);
+        arquivoDestino << blocoTexto;
+        
+        if (i < receita.size() - 1) {
+            arquivoDestino << "\n";
+        }
     }
 
     arquivoDestino.close();
