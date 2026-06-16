@@ -14,6 +14,7 @@ class Storage {
     friend class Deduplicator;
     friend class Reconstructor;
     friend class Serializer;
+    friend class CommandLineInterface;
 
 private:
     std::unordered_map<size_t, uint32_t> dicionarioGlobal;
