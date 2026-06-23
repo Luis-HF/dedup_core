@@ -111,11 +111,7 @@ Cada arquivo possui uma sequência de IDs representando sua estrutura original.
 make
 ```
 
-Executável gerado:
-
-```bash
-./dedup
-```
+Executável gerado: dedup
 
 ---
 
@@ -124,7 +120,7 @@ Executável gerado:
 ### Ingerir arquivos
 
 ```bash
-./dedup ingerir arquivo1.txt arquivo2.txt
+./dedup ingerir caminho_arquivo1.txt caminho_arquivo2.txt
 ```
 
 O sistema irá:
@@ -139,8 +135,9 @@ O sistema irá:
 ### Reconstruir arquivo
 
 ```bash
-./dedup reconstruir arquivo_original.txt saida.txt
+./dedup reconstruir caminho_arquivo_original.txt caminho_saida.txt
 ```
+OBS: Na reconstrução, ainda é preciso passar o caminho do arquivo original, e não apenas seu nome.
 
 O sistema irá:
 
