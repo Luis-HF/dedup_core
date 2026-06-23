@@ -105,6 +105,7 @@ Cada arquivo possui uma sequência de IDs representando sua estrutura original.
 - make
 
 ### Compilar
+- No diretório do arquivo, executar:
 
 ```bash
 make
@@ -236,7 +237,7 @@ A serialização é implementada manualmente usando apenas a biblioteca padrão 
 ## Autor(es)
 
 -Luis Henrique Farias (lhfspro@gmail.com).
--João Lourenço (**).
+-João Lourenço Carvalho (joamel.2024@alunos.utfpr.edu.br).
 
 ---
 
